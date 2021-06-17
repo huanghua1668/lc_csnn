@@ -15,8 +15,17 @@
 ######################################################################
 import numpy as np
 import csv
-from label import score
+# from label import score
 
+def score(accelerations):
+    comfortableDecRate = -3.
+    minDec = np.amin(accelerations)
+    if minDec > comfortableDecRate:
+        return 1
+    temp = np.sum(accelerations <= comfortableDecRate)
+    if temp >= 10:
+        return 0
+    return 1
 
 def extract_surrounding_vehicles(id, name, data, i, start, end, record, x0, y0, carOnly=True):
     nonCar = False
